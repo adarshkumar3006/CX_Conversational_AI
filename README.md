@@ -78,29 +78,5 @@ streamlit run streamlit_app.py
 
 - Set `GEMINI_API_KEY` via `.env` or environment variable. Do not commit secrets.
 - To change the model, update `config/config.json` `llm.model` or set `GEMINI_MODEL` env var.
-- The code includes a demo retriever to avoid failing when embeddings or FAISS are not configured. If you want full vector search, I can help enable embeddings and FAISS.
 
-## Troubleshooting
 
-- Model not found / 404: list available models:
-
-```powershell
-python -c "import os, google.generativeai as genai; genai.configure(api_key=os.getenv('GEMINI_API_KEY')); print(genai.list_models())"
-```
-
-- Dependency build errors (faiss/numpy): upgrade pip/setuptools/wheel and reinstall:
-
-```powershell
-python -m pip install --upgrade pip setuptools wheel
-pip install -r .\requirements.txt
-```
-
-## Need help?
-
-If you'd like I can:
-
-- Run the import smoke-check and fix import issues.
-- Enable full embeddings + FAISS and wire persistence.
-- Add CI smoke-tests or sample data for demos.
-
-Tell me which next step you'd like me to take.
