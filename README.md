@@ -1,7 +1,5 @@
 # CX_Conversational_AI
 
-# CX_Conversational_AI
-
 Tagline: A hyper-personalized RAG-based customer support agent combining customer context, PII-safe masking, and Google Generative AI for tailored responses.
 
 ## Overview
