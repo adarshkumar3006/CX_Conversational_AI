@@ -1,0 +1,50 @@
+{
+  "alice_001": {
+    "user_id": "alice_001",
+    "name": "Alice Johnson",
+    "preferences": [
+      "vegan",
+      "organic",
+      "low-calorie",
+      "fitness",
+      "health-conscious"
+    ],
+    "purchase_history": [
+      "bought_acai_bowl",
+      "attended_yoga_class",
+      "read_nutrition_blog",
+      "purchased_smoothie",
+      "joined_gym"
+    ]
+  },
+  "bob_001": {
+    "user_id": "bob_001",
+    "name": "Bob Smith",
+    "preferences": [
+      "premium_cuts",
+      "fine_dining",
+      "wine_pairing",
+      "luxury",
+      "beef_lover"
+    ],
+    "purchase_history": [
+      "bought_ribeye_steak",
+      "attended_wine_tasting",
+      "purchased_champagne",
+      "booked_fine_dining",
+      "bought_truffle_oil"
+    ]
+  },
+  "adarsh_002": {
+    "user_id": "adarsh_002",
+    "name": "Adarsh",
+    "preferences": [
+      "non-vegiterian",
+      "lactose intolerent."
+    ],
+    "purchase_history": [
+      "went to gym",
+      "got his leg broken"
+    ]
+  }
+}

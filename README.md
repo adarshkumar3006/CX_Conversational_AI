@@ -41,68 +41,96 @@ cd CX_Conversational_AI
 
 2. Create & activate venv
 
+# 📄 Groq + PDF RAG Demo
+
+**Tagline:** Upload a PDF, ask questions, get answers powered by Groq AI.
+
+## Overview
+
+A simple demo of Retrieval-Augmented Generation (RAG) using:
+
+- **Groq API** for fast LLM inference
+- **PyPDF2** for PDF text extraction
+- **Streamlit** for interactive web UI
+- **Simple in-memory text storage** (no complex embeddings/vector DB for demo)
+
+## Files
+
+- `main.py` — CLI demo (load PDF, ask questions interactively)
+- `streamlit_ui.py` — Streamlit web UI (upload PDF, chat interface)
+- `rag_groq.py` — Core RAG module (PDF loading, Groq response generation)
+- `.env` — API keys (set your Groq API key here)
+- `requirements.txt` — Python dependencies
+
+## Quick Start (Windows PowerShell)
+
+### 1) Clone & setup
+
 ```powershell
+git clone https://github.com/adarshkumar3006/CX_Conversational_AI.git
+cd CX_Conversational_AI
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-```
-
-3. Install dependencies
-
-```powershell
 pip install -r .\requirements.txt
 ```
 
-4. Add your Gemini / Vertex API key (for current session)
+### 2) Add Groq API key
+
+Get your API key from [console.groq.com](https://console.groq.com/keys), then add to `.env`:
 
 ```powershell
-$env:GEMINI_API_KEY = 'your_key_here'
+$env:GROQ_API_KEY = 'your_groq_api_key_here'
 ```
 
-5. Optional: quick import smoke-check
+Or edit `.env` directly:
 
-```powershell
-python -c "from src.core.agent_new import CustomerSupportAgent; from src.rag.generator import ResponseGenerator; from src.rag.retriever_demo import DemoRetriever; from src.privacy.data_masking import DataMasker; print('IMPORTS_OK')"
+```dotenv
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
-6. Run CLI demo
+### 3) Run CLI demo
 
 ```powershell
 python main.py
 ```
 
-7. Run Streamlit UI (optional)
+Commands:
+
+- `load /path/to/file.pdf` — Load a PDF
+- Ask any question — Generate response based on PDF
+- `clear` — Clear loaded documents
+- `exit` — Quit
+
+### 4) Run Streamlit UI (optional)
 
 ```powershell
-streamlit run streamlit_app.py
+streamlit run streamlit_ui.py
 ```
 
-## Configuration notes
+Opens browser at `http://localhost:8501`. Upload PDF via sidebar, ask questions in chat.
 
-- Set `GEMINI_API_KEY` via `.env` or environment variable. Do not commit secrets.
-- To change the model, update `config/config.json` `llm.model` or set `GEMINI_MODEL` env var.
-- The code includes a demo retriever to avoid failing when embeddings or FAISS are not configured. If you want full vector search, I can help enable embeddings and FAISS.
+## How it works
+
+1. **Load PDF** — Extract all text from PDF using PyPDF2
+2. **Store** — Keep text in memory (demo only; production would use vector DB)
+3. **Query** — User asks a question
+4. **Prompt** — Build a prompt with PDF content + question
+5. **Groq** — Send to Groq API (Mixtral model) for response generation
+6. **Return** — Display answer to user
 
 ## Troubleshooting
 
-- Model not found / 404: list available models:
+- **API key error:** Verify `GROQ_API_KEY` is set correctly in `.env` or environment
+- **PDF load error:** Check the file path exists and is a valid PDF
+- **No Groq response:** Confirm internet connection and API key is active
 
-```powershell
-python -c "import os, google.generativeai as genai; genai.configure(api_key=os.getenv('GEMINI_API_KEY')); print(genai.list_models())"
-```
+## Next steps (optional enhancements)
 
-- Dependency build errors (faiss/numpy): upgrade pip/setuptools/wheel and reinstall:
+- Add vector embeddings + FAISS for semantic search
+- Support multiple PDFs
+- Add chat history persistence
+- Use advanced prompting (few-shot, chain-of-thought)
 
-```powershell
-python -m pip install --upgrade pip setuptools wheel
-pip install -r .\requirements.txt
-```
+---
 
-## Need help?
-
-If you'd like I can:
-
-- Run the import smoke-check and fix import issues.
-- Enable full embeddings + FAISS and wire persistence.
-- Add CI smoke-tests or sample data for demos.
-
-Tell me which next step you'd like me to take.
+Enjoy! 🚀
