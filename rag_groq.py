@@ -124,7 +124,7 @@ class SimpleRAG:
         falls back to `openai/gpt-oss-20b` per project configuration.
         """
         # Prefer explicit argument -> env var -> fallback default
-        # Default to `openai/gpt-oss-20b` instead of Mistral variants.
+        # Default to `openai/gpt-oss-20b`.
         self.model = model or os.getenv("GROQ_MODEL") or "openai/gpt-oss-20b"
         self.documents: List[Dict[str, str]] = []  # Store PDFs with metadata: {name, text, pages, char_count}
         self.conversation_history: List[dict] = []  # For multi-turn conversations

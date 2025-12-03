@@ -30,8 +30,8 @@ def print_help():
 
 def main():
     """Main CLI demo."""
-    # Do not hard-code a decommissioned model name; allow env/config to choose the Groq model.
-    rag = SimpleRAG(model=None, users_file="users.json")
+    # Use the previous requested model explicitly across the app.
+    rag = SimpleRAG(model="openai/gpt-oss-20b", users_file="users.json")
     current_user_id = None
 
     print_help()

@@ -23,7 +23,8 @@ if not os.getenv("GROQ_API_KEY"):
 # Initialize session state
 if "rag" not in st.session_state:
     # Do not hard-code a decommissioned model; let SimpleRAG pick from env or fallback.
-    st.session_state.rag = SimpleRAG(model=None, users_file="users.json")
+    # Use the previous requested model explicitly across the app.
+    st.session_state.rag = SimpleRAG(model="openai/gpt-oss-20b", users_file="users.json")
     users_count = len(st.session_state.rag.list_users())
     if users_count > 0:
         print(f"✓ Loaded {users_count} users from users.json")
