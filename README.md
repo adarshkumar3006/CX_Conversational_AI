@@ -1,7 +1,5 @@
 # CX_Conversational_AI
 
-# CX_Conversational_AI
-
 Tagline: A hyper-personalized RAG-based customer support agent combining customer context, PII-safe masking, and Google Generative AI for tailored responses.
 
 ## Overview
@@ -107,30 +105,33 @@ Commands:
 streamlit run streamlit_ui.py
 ```
 
-Opens browser at `http://localhost:8501`. Upload PDF via sidebar, ask questions in chat.
+## Configuration notes
 
-## How it works
-
-1. **Load PDF** — Extract all text from PDF using PyPDF2
-2. **Store** — Keep text in memory (demo only; production would use vector DB)
-3. **Query** — User asks a question
-4. **Prompt** — Build a prompt with PDF content + question
-5. **Groq** — Send to Groq API (Mixtral model) for response generation
-6. **Return** — Display answer to user
+- Set `GEMINI_API_KEY` via `.env` or environment variable. Do not commit secrets.
+- To change the model, update `config/config.json` `llm.model` or set `GEMINI_MODEL` env var.
+- The code includes a demo retriever to avoid failing when embeddings or FAISS are not configured. If you want full vector search, I can help enable embeddings and FAISS.
 
 ## Troubleshooting
 
-- **API key error:** Verify `GROQ_API_KEY` is set correctly in `.env` or environment
-- **PDF load error:** Check the file path exists and is a valid PDF
-- **No Groq response:** Confirm internet connection and API key is active
+- Model not found / 404: list available models:
 
-## Next steps (optional enhancements)
+```powershell
+python -c "import os, google.generativeai as genai; genai.configure(api_key=os.getenv('GEMINI_API_KEY')); print(genai.list_models())"
+```
 
-- Add vector embeddings + FAISS for semantic search
-- Support multiple PDFs
-- Add chat history persistence
-- Use advanced prompting (few-shot, chain-of-thought)
+- Dependency build errors (faiss/numpy): upgrade pip/setuptools/wheel and reinstall:
 
----
+```powershell
+python -m pip install --upgrade pip setuptools wheel
+pip install -r .\requirements.txt
+```
 
-Enjoy! 🚀
+## Need help?
+
+If you'd like I can:
+
+- Run the import smoke-check and fix import issues.
+- Enable full embeddings + FAISS and wire persistence.
+- Add CI smoke-tests or sample data for demos.
+
+Tell me which next step you'd like me to take.
