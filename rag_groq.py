@@ -117,14 +117,15 @@ class SimpleRAG:
     """Simple RAG system: load multiple PDFs, store user context, generate personalized responses via Groq."""
 
     def __init__(self, model: str = None, users_file: str = "users.json"):
-        """Initialize RAG with Groq model and user context DB with persistence.
+        """Initialize RAG with model and user context DB with persistence.
 
-        The Groq model will be taken from the `model` argument if provided,
+        The model will be taken from the `model` argument if provided,
         otherwise from the `GROQ_MODEL` environment variable, and finally
-        falls back to a sensible default `groq-mixtral-v1`.
+        falls back to `openai/gpt-oss-20b` per project configuration.
         """
-        # Prefer explicit argument -> env var -> sensible default
-        self.model = model or os.getenv("GROQ_MODEL") or "groq-mixtral-v1"
+        # Prefer explicit argument -> env var -> fallback default
+        # Default to `openai/gpt-oss-20b` instead of Mistral variants.
+        self.model = model or os.getenv("GROQ_MODEL") or "openai/gpt-oss-20b"
         self.documents: List[Dict[str, str]] = []  # Store PDFs with metadata: {name, text, pages, char_count}
         self.conversation_history: List[dict] = []  # For multi-turn conversations
         self.client = None
